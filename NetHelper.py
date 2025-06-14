@@ -81,6 +81,20 @@ def netstatano():
     except subprocess.CalledProcessError as e:
         print("Erro: ",e)
 
+def arp():
+    try:
+        result = subprocess.run('arp -a', capture_output=True, text=True, shell=True)
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Erro: ",e)
+
+def route():
+    try:
+        result = subprocess.run('route print', capture_output=True, text=True, shell=True)
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Erro: ",e)
+
 def opcoes():
     global opcao
     opcao=input("1 ipConfig: Mostrar informações como endereço IP, máscara de sub-rede, gateway padrão e configurações de DNS\n"
@@ -91,12 +105,14 @@ def opcoes():
                 "6 tracert: Rastrear o caminho de um pacote de dados até um destino\n"
                 "7 netstat: Exibir estatísticas sobre as conexões de rede, tabelas de roteamento e interfaces de rede \n"
                 "8 netstat -ano: Exibir todas as portas abertas e conexões ativas numericamente, incluindo o ID do processo\n"
-                "9 Finalizar\n\n")
+                "9 arp-a: Exibir a tabela de ARP atual, mostrando os endereços IP e seus respectivos endereços MAC\n"
+                "10 route print: Exibir a tabela de roteamento IP\n"
+                "11 Finalizar\n\n")
 
 #apresentações
 print("\nSeja bem vindo!\nEsse programa foi criado para ajudar técnicos em informáica e técnicos em redes a solucionar problemas de conexão.\n")
 opcoes()
-while opcao!="9":
+while opcao!="11":
     if opcao=="1":
         ipConfig()
         input("Pressione enter para prosseguir\n")
@@ -127,6 +143,14 @@ while opcao!="9":
         opcoes()
     elif opcao=="8":
         netstatano()
+        input("Pressione enter para prosseguir\n")
+        opcoes()
+    elif opcao=="9":
+        arp()
+        input("Pressione enter para prosseguir\n")
+        opcoes()
+    elif opcao=="10":
+        route()
         input("Pressione enter para prosseguir\n")
         opcoes()
     else:
